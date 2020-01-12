@@ -1,0 +1,499 @@
+@import 'reset';
+@import 'function';
+@import 'extend';
+@import 'mixin';
+@import 'variable';
+@import 'grid';
+
+$fz: 25px 20px 14px 18px 16px 14px 12px;
+$lh: 40px 30px 20px;
+$mobile-nav-width: 200px;
+//utils
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: map-get($map: $color, $key: bg);
+}
+h1 {
+    font-size: nth($list: $fz, $n: 1);
+    line-height: nth($list: $lh, $n: 1);
+    color: white;
+}
+h3 {
+    font-size: nth($list: $fz, $n: 2);
+    line-height: nth($list: $lh, $n: 2);
+    color: map-get($map: $color, $key: primary);
+}
+p {
+    font-size: nth($list: $fz, $n: 3);
+    line-height: nth($list: $lh, $n: 3);
+    color: map-get($map: $color, $key: text);
+}
+img {
+    width: 100%;
+}
+.container {
+    @include container();
+    // max-width: calc(#{map-get($device, pc)}* 0.725);
+    padding: 0 10px;
+    // @include media(tablet) {
+    //     max-width: calc(#{map-get($device, tablet)} * 0.8);
+    // }
+}
+//header
+header {
+    height: 100px;
+    background-color: map-get($map: $color, $key: primary);
+    position: relative;
+    @include media(tablet) {
+        height: 60px;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        left: 0;
+    }
+    .container {
+        @extend %clearfix;
+        @include media(tablet) {
+            @include flex();
+        }
+    }
+    @at-root .burger {
+        width: 65px;
+        height: 100%;
+        padding: 0 20px;
+        cursor: pointer;
+        @include flex(center, center, col);
+        position: absolute;
+        left: 0;
+        top: 0;
+        display: none;
+        z-index: 20;
+        transition: left 0.3s;
+        .line {
+            display: block;
+            width: 100%;
+            height: 2px;
+            background-color: map-get($map: $color, $key: burger);
+            margin: 3px 0;
+            transition: all 0.4s 0.1s;
+        }
+        @include media(tablet) {
+            display: flex;
+        }
+    }
+    @at-root .mask {
+        width: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 5;
+        transition: background 0.35s 0.2s;
+    }
+    .nav-list {
+        border-bottom: 1px solid hsla(0, 0%, 97.6%, 0.3);
+        color: hsla(0, 0%, 97.6%, 0.5);
+        padding: 20px;
+        margin-bottom: 1px;
+        display: none;
+        @include media(tablet) {
+            display: block;
+        }
+    }
+    h1 {
+        float: left;
+        height: 100%;
+        @include flex();
+        img {
+            width: 150px;
+        }
+        @include media(tablet) {
+            @include flex();
+        }
+    }
+    nav {
+        height: 100%;
+        float: right;
+        @include flex(none);
+        transition: left 0.3s;
+        @include media(tablet) {
+            position: fixed;
+            left: -($mobile-nav-width);
+            top: 0;
+            width: $mobile-nav-width;
+            height: 100%;
+            display: block;
+            background-color: (map-get($map: $color, $key: secondary));
+            z-index: 10;
+        }
+        a {
+            height: 100%;
+            @include flex(center, center, col);
+            padding: 0px 10px;
+            margin: 0 5px;
+            color: white;
+            position: relative;
+            z-index: 1;
+            transition: background 0.3s;
+            @include media(tablet) {
+                height: auto;
+                align-items: flex-start;
+                margin: 0;
+                padding: 10px 20px;
+                &::before {
+                    display: none;
+                }
+                &:hover {
+                    background-color: map-get($map: $color, $key: primary);
+                }
+            }
+        }
+        .nav-now {
+            @include pseudo(after) {
+                position: absolute;
+                width: 90%;
+                height: 30%;
+                border-radius: 3px;
+                background-color: map-get($map: $color, $key: secondary);
+                z-index: -1;
+            }
+        }
+    }
+}
+.active header nav {
+    left: 0;
+}
+.active .burger {
+    left: 200px;
+    @include burger-trans;
+}
+.active .burger .line {
+    background-color: white;
+}
+.active .mask {
+    height: 100%;
+    background-color: rgba(black, 0.8);
+}
+.fix{
+    padding-top: 100px;
+    @include media(tablet){
+        padding-top: 60px;
+    }
+    header{
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index:10;
+    }
+}
+//slider
+.outerSlider {
+    padding-top: 33%;
+    position: relative;
+}
+.slider {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+.sliderContainer {
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    position: relative;
+}
+.sliderList {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    transition: filter 0.2s;
+    &:hover {
+        filter: brightness(0.9);
+    }
+    .img {
+        width: 100%;
+        height: 100%;
+        @extend %bg-setting;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+}
+.slider-nav {
+    width: 100%;
+    display: flex;
+    .slider-bar {
+        height: 100%;
+        position: absolute;
+    }
+    .prev-bar {
+        top: 0;
+        left: 0;
+    }
+    .next-bar {
+        top: 0;
+        right: 0;
+    }
+    @at-root .prev,
+        .next {
+        width: 40px;
+        height: 40px;
+        background-color: rgba(black, 0.4);
+        position: relative;
+        transform: translateY(-50%);
+        @include pseudo(after) {
+            width: 15px;
+            height: 15px;
+            border-top: 3px solid white;
+            border-right: 3px solid white;
+        }
+    }
+    .prev {
+        top: 50%;
+        left: 0;
+        &::after {
+            top: 50%;
+            left: 55%;
+            transform: translate(-50%, -50%) rotate(-135deg);
+        }
+    }
+    .next {
+        top: 50%;
+        &::after {
+            top: 50%;
+            left: 45%;
+            transform: translate(-50%, -50%) rotate(45deg);
+        }
+    }
+}
+
+.dots {
+    @include flex();
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    @at-root .dot {
+        width: 60px;
+        height: 5px;
+        background-color: map-get($map: $color, $key: gray);
+        margin: 0 5px;
+        cursor: pointer;
+        position: relative;
+        border-radius: 10px;
+        .dot-timer {
+            width: 0;
+            height: 100%;
+            background-color: map-get($map: $color, $key: primary);
+            border-radius: 10px;
+        }
+    }
+}
+
+//main
+.s1,
+.s2,
+.s3,
+.s4,
+.s5 {
+    padding-bottom: 40px;
+    @include media(tablet) {
+        .small2 {
+            order: 1;
+        }
+        .big1 {
+            order: 2;
+        }
+    }
+}
+.s1 {
+    padding-top: 40px;
+}
+h3 {
+    margin: 20px 0;
+}
+p {
+    margin: 20px 0;
+}
+.small2{
+    @include media(tablet){
+        @include flex(between);
+    }
+    @include media(mobile){
+        display: block;
+    }
+    .s3-sm-card{
+        @include media(tablet){
+            width: 48%;    
+        }
+        @include media(mobile){
+            width: 100%;
+        }
+    }
+}
+
+
+//table
+table {
+    border-spacing: 0;
+    @at-root thead {
+        background-color: map-get($map: $color, $key: primary);
+        color: white;
+        tr {
+            th:nth-child(1) {
+                width: 25%;
+                position: relative;
+            }
+            th {
+                padding: 10px 0;
+                font-weight: nth($fw, 2);
+            }
+        }
+    }
+    @at-root tbody {
+        background-color: #fff;
+        td > div {
+            color: map-get($map: $color, $key: secondary);
+        }
+        tr {
+            td:nth-child(1) {
+                position: relative;
+                overflow: hidden;
+                @include pseudo(after, 'HOT') {
+                    color: white;
+                    background-color: map-get($map: $color, $key: secondary);
+                    font-size: nth($list: $fz, $n: 3);
+                    font-weight: nth($list: $fw, $n: 2);
+                    padding: 40px 20px 0;
+                    transform: rotate(45deg);
+                    top: -26px;
+                    right: -31px;
+                    z-index: 1;
+                }
+            }
+        }
+        tr:nth-child(even) {
+            background-color: map-get($map: $color, $key: table);
+        }
+    }
+    td {
+        padding: 10px 20px;
+        border: 1px solid black;
+    }
+    p {
+        margin: 0;
+    }
+    .td2 {
+        display: flex;
+        > a {
+            padding: 0 10px;
+            border-radius: 5px;
+            color: #fff;
+            background-color: map-get($map: $color, $key: secondary);
+            @include flex();
+            margin-left: 10px;
+        }
+    }
+}
+@include media(tablet) {
+    table,
+    thead,
+    tbody,
+    th,
+    td,
+    tr {
+        display: block;
+    }
+    thead {
+        display: none;
+    }
+    tbody{
+        background-color: transparent;
+        tr:nth-child(even){
+            background-color: #fff;
+        }
+    }
+    tr {
+        background-color: #fff;
+        margin-bottom: 20px;
+        td {
+            padding: 10px 2%;
+            padding-left: 25%;
+            position: relative;
+            &::before {
+                content: '';
+                display: block;
+                position: absolute;
+                top: 0px;
+                left: 0px;
+                width: 23%;
+                height: 100%;
+                white-space: nowrap;
+                background-color: map-get($map: $color, $key: primary);
+                @include flex();
+                color: white;
+            }
+        }
+        td:nth-of-type(1):before {
+            content: 'Title';
+        }
+        td:nth-of-type(2):before {
+            content: 'Content';
+        }
+    }
+    table .td2{
+        display: block;
+        >a{
+            margin: 10px 0;
+            padding: 10px 0;
+            border-radius: 10px;
+        }
+    }
+}
+@include media(mobile){
+    tr{
+        td{
+            padding-left: 3%;
+            padding-right: 3%;
+            padding-top: 50px;
+            &::before{
+                width: 100%;
+                height: 40px;
+            }
+        }
+    }
+}
+//footer
+footer {
+    background-color: map-get($map: $color, $key: primary);
+    h3 {
+        color: map-get($map: $color, $key: secondary);
+    }
+    p {
+        margin: 5px 0 0;
+        color: map-get($map: $color, $key: secondary);
+    }
+}
+.footer-sm-card {
+    @at-root .sm-block {
+        display: flex;
+        margin-bottom: 30px;
+        > div {
+            width: 50%;
+            img {
+                height: 100%;
+            }
+        }
+        > p {
+            margin-left: 10px;
+        }
+    }
+}
+.footer-lg-card {
+    p {
+        margin: 20px 0 0;
+    }
+}

@@ -1,0 +1,38 @@
+$fz: 36px 30px 20px 16px 14px 12px;
+$fw: 800 400 100;
+
+$color: (
+    primary: #372019,
+    secondary: #774535,
+    bg: #ebebeb,
+    table: #dddddd,
+    text: #474747,
+    trans: transparent,
+    burger: #774535,
+);
+
+$device: (
+    pc: 1200px,
+    tablet: 768px,
+    mobile: 480px,
+);
+
+$jc-status:(
+    center: center,
+    start:flex-start,
+    end:flex-end,
+    between:space-between,
+    around:space-around,
+    initial: initial,
+);
+
+$ai-status:(
+    center: center,
+    start:flex-start,
+    end:flex-end,
+    initial: initial,
+);
+$direction:(
+    row: row,
+    col: column,
+)

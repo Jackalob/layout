@@ -39,6 +39,37 @@ img {
     //     max-width: calc(#{map-get($device, tablet)} * 0.8);
     // }
 }
+.pd-pic{
+    width: 100%;
+    padding-top: 75%;
+    position: relative;
+    >img{
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+}
+.pd-banner{
+    width: 100%;
+    padding-top: 33%;
+    position: relative;
+    >img{
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+}
+.pd-outer{
+    width: 80%;
+    margin-top: 8px;
+    @include media(tablet){
+        width: 100%;
+    }
+}
 //header
 header {
     height: 100px;
@@ -125,7 +156,7 @@ header {
             background-color: (map-get($map: $color, $key: secondary));
             z-index: 10;
         }
-        a {
+        >a {
             height: 100%;
             @include flex(center, center, col);
             padding: 0px 10px;
@@ -133,7 +164,17 @@ header {
             color: white;
             position: relative;
             z-index: 1;
-            transition: background 0.3s;
+            @include pseudo(after) {
+                position: absolute;
+                width: 90%;
+                height: 30%;
+                border-radius: 3px;
+                z-index: -1;
+                transition: background 0.3s;
+            }
+            &:hover:after{
+                background-color: map-get($map: $color, $key: secondary);
+            }
             @include media(tablet) {
                 height: auto;
                 align-items: flex-start;
@@ -144,17 +185,11 @@ header {
                 }
                 &:hover {
                     background-color: map-get($map: $color, $key: primary);
+                    &:after{
+                        background-color: transparent;
+                    }
                 }
-            }
-        }
-        .nav-now {
-            @include pseudo(after) {
-                position: absolute;
-                width: 90%;
-                height: 30%;
-                border-radius: 3px;
-                background-color: map-get($map: $color, $key: secondary);
-                z-index: -1;
+            
             }
         }
     }
@@ -372,7 +407,14 @@ table {
                     top: -26px;
                     right: -31px;
                     z-index: 1;
+                    @include media(mobile){
+                        padding: 45px 20px 0 ;
+                        top: -32px;
+                        right: -35px;
+                        font-size: 12px;
+                    }
                 }
+                
             }
         }
         tr:nth-child(even) {
@@ -482,7 +524,6 @@ footer {
         display: flex;
         margin-bottom: 30px;
         > div {
-            width: 50%;
             img {
                 height: 100%;
             }

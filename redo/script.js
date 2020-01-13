@@ -7,8 +7,8 @@ let timerActive; //用來放setTimeout的變數
 
 const images = {
     img1: './images/banner.png',
-    img2: './images/1.png',
-    img3: './images/2.png',
+    img2: './images/banner2.png',
+    img3: './images/banner3.png',
 };
 
 let pics = {
